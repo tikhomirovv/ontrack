@@ -10,16 +10,11 @@ import { getCurrentPageHash, generateTimelineItems } from './functions'
 
 const timelineItems = generateTimelineItems()
 const currentPage = ref(getCurrentPageHash())
-function goTo(page) {
-  currentPage.value = page
-}
+const goTo = (page) => (currentPage.value = page)
 </script>
 
 <template>
-  <Header
-    @go-to-timeline="goTo(PAGE_TIMELINE)"
-    @go-to-progress="goTo(PAGE_PROGRESS)"
-  />
+  <Header @navigate="goTo" />
   <main class="flex flex-grow flex-col">
     <Timeline
       v-show="currentPage === PAGE_TIMELINE"
