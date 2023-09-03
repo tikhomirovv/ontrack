@@ -10,9 +10,9 @@ export const isPageValid = (page) => {
   return Object.keys(NAV_ITEMS).includes(page)
 }
 
-export const isTimelineItemValid = ({ hour }) =>
+export const isTimelineItemValid = ({ hour }) => isHourValid(hour)
+export const isHourValid = (hour) =>
   typeof isNumber(hour) && hour >= MIDNIGHT_HOUR && hour < HOURS_IN_DAY
-
 const validateSelectOption = ({ value, label }) =>
   isNumber(value) && isString(label)
 export const validateSelectOptions = (options) =>
