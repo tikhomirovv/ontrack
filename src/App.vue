@@ -21,7 +21,10 @@ function goTo(page) {
     @go-to-progress="goTo(PAGE_PROGRESS)"
   />
   <main class="flex flex-grow flex-col">
-    <Timeline v-show="currentPage === PAGE_TIMELINE" :timeline-items="timelineItems" />
+    <Timeline
+      v-show="currentPage === PAGE_TIMELINE"
+      :timeline-items="timelineItems"
+    />
     <Activities v-show="currentPage === PAGE_ACTIVITIES" />
     <Progress v-show="currentPage === PAGE_PROGRESS" />
   </main>
