@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue'
 import { isTimelineItemValid } from '../validators'
 import BaseSelect from './BaseSelect.vue'
 const props = defineProps({
@@ -20,7 +21,7 @@ const options = [
   { value: 2, label: 'Reading' },
   { value: 3, label: 'Training' },
 ]
-const selectedActivityId = 1
+const selectedActivityId = ref()
 </script>
 <template>
   <li class="relative flex flex-col gap-2 border-t border-gray-200 px-4 py-10">
@@ -29,6 +30,7 @@ const selectedActivityId = 1
       :selected="selectedActivityId"
       :options="options"
       placeholder="Rest"
+      @select="selectedActivityId = $event"
     />
   </li>
 </template>
