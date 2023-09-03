@@ -10,6 +10,7 @@ import { getCurrentPageHash, generateTimelineItems } from './functions'
 
 const timelineItems = generateTimelineItems()
 const currentPage = ref(getCurrentPageHash())
+const activities = ['Coding', 'Reading', 'Trailing']
 const goTo = (page) => (currentPage.value = page)
 </script>
 
@@ -20,7 +21,10 @@ const goTo = (page) => (currentPage.value = page)
       v-show="currentPage === PAGE_TIMELINE"
       :timeline-items="timelineItems"
     />
-    <Activities v-show="currentPage === PAGE_ACTIVITIES" />
+    <Activities
+      v-show="currentPage === PAGE_ACTIVITIES"
+      :activities="activities"
+    />
     <Progress v-show="currentPage === PAGE_PROGRESS" />
   </main>
   <Nav :current-page="currentPage" @navigate="goTo($event)" />
