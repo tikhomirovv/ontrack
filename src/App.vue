@@ -35,6 +35,9 @@ const deleteActivity = (activity) => {
 const setTimelineItemActivity = ({ timelineItem, activity }) => {
   timelineItem.activityId = activity?.id || null
 }
+const setActivitySecondsToComplete = (activity, secondsToComplete) => {
+  activity.secondsToComplete = secondsToComplete
+}
 </script>
 
 <template>
@@ -52,6 +55,7 @@ const setTimelineItemActivity = ({ timelineItem, activity }) => {
       :activities="activities"
       @create-activity="createActivity"
       @delete-activity="deleteActivity"
+      @set-activity-seconds-to-complete="setActivitySecondsToComplete"
     />
     <Progress v-show="currentPage === PAGE_PROGRESS" />
   </main>

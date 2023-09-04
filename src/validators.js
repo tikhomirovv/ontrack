@@ -6,7 +6,6 @@ import {
 } from './constants.js'
 
 // TypeScript, please
-const isNumber = (value) => typeof value === 'number'
 const isString = (value) => typeof value === 'string'
 const isNotEmptyString = (value) => isString(value) && value.length > 0
 export const isPageValid = (page) => {
@@ -14,6 +13,7 @@ export const isPageValid = (page) => {
 }
 
 export const isNull = (value) => value === null
+export const isNumber = (value) => typeof value === 'number'
 export const isUndefined = (value) => value === undefined
 export const isTimelineItemValid = ({ hour }) => isHourValid(hour)
 

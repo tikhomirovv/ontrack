@@ -28,15 +28,15 @@ export const SECONDS_IN_HOUR = 3600
 export const SECONDS_IN_MINUTE = 60
 export const PERIOD_SELECT_OPTIONS = [
   {
-    value: 15 * SECONDS_IN_MINUTE,
-    label: '0:15',
+    value: 1 * SECONDS_IN_HOUR,
+    label: '01:00',
   },
   {
-    value: 30 * SECONDS_IN_MINUTE,
-    label: '0:30',
+    value: 2 * SECONDS_IN_HOUR,
+    label: '02:00',
   },
   {
-    value: 45 * SECONDS_IN_MINUTE,
-    label: '0:45',
+    value: 3 * SECONDS_IN_HOUR,
+    label: '03:00',
   },
 ]
