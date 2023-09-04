@@ -21,7 +21,7 @@ export const isHourValid = (hour) =>
   typeof isNumber(hour) && hour >= MIDNIGHT_HOUR && hour < HOURS_IN_DAY
 
 const validateSelectOption = ({ value, label }) =>
-  isNumber(value) && isString(label)
+  isNumber(value) && isNotEmptyString(label)
 export const validateSelectOptions = (options) =>
   options.every(validateSelectOption)
 
