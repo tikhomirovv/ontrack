@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import Header from './components/Header.vue'
 import Nav from './components/Nav.vue'
 import Timeline from './pages/Timeline.vue'
@@ -10,12 +10,15 @@ import {
   getCurrentPageHash,
   generateTimelineItems,
   generateActivitySelectOptions,
+  generateActivities,
 } from './functions'
 
 const timelineItems = generateTimelineItems()
 const currentPage = ref(getCurrentPageHash())
-const activities = ref(['Coding', 'Reading', 'Trailing'])
-const activitySelectOptions = generateActivitySelectOptions(activities.value)
+const activities = ref(generateActivities())
+const activitySelectOptions = computed(() =>
+  generateActivitySelectOptions(activities.value),
+)
 const goTo = (page) => (currentPage.value = page)
 
 const createActivity = (activity) => {

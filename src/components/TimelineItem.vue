@@ -14,7 +14,7 @@ defineProps({
     required: true,
   },
 })
-const selectedActivityId = ref(0)
+const selectedActivityId = ref(null)
 </script>
 <template>
   <li class="relative flex flex-col gap-2 border-t border-gray-200 px-4 py-10">
