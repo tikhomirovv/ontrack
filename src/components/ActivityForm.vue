@@ -2,15 +2,17 @@
 import BaseButton from './BaseButton.vue'
 import { PlusIcon } from '@heroicons/vue/24/outline'
 import { isActivityValid } from './../validators'
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
 
 const emit = defineEmits({
   submit: isActivityValid,
 })
 let activity = ref('')
-const submit = () => {
+const submit = async () => {
   emit('submit', activity.value)
   activity.value = ''
+  await nextTick()
+  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
 }
 </script>
 <template>
@@ -21,7 +23,7 @@ const submit = () => {
     <input
       type="text"
       v-model="activity"
-      class="w-full flex-grow rounded border px-4 text-xl"
+      class="w-full flex-grow rounded border px-4 text-xl outline-purple-500 focus:outline-4"
       placeholder="Activity name"
     />
     <BaseButton :disabled="activity.trim() === ''">
