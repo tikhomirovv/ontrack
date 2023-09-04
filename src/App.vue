@@ -13,7 +13,7 @@ import {
   generateActivities,
 } from './functions'
 
-const timelineItems = generateTimelineItems()
+const timelineItems = ref(generateTimelineItems())
 const currentPage = ref(getCurrentPageHash())
 const activities = ref(generateActivities())
 const activitySelectOptions = computed(() =>
@@ -25,7 +25,15 @@ const createActivity = (activity) => {
   activities.value.push(activity)
 }
 const deleteActivity = (activity) => {
+  timelineItems.value.forEach((timelineItem) => {
+    if (timelineItem.activityId === activity.id) {
+      timelineItem.activityId = null
+    }
+  })
   activities.value.splice(activities.value.indexOf(activity), 1)
+}
+const setTimelineItemActivity = ({ timelineItem, activity }) => {
+  timelineItem.activityId = activity?.id || null
 }
 </script>
 
@@ -34,8 +42,10 @@ const deleteActivity = (activity) => {
   <main class="flex flex-grow flex-col">
     <Timeline
       v-show="currentPage === PAGE_TIMELINE"
+      :activities="activities"
       :timeline-items="timelineItems"
       :activity-select-options="activitySelectOptions"
+      @set-timeline-item-activity="setTimelineItemActivity"
     />
     <Activities
       v-show="currentPage === PAGE_ACTIVITIES"
