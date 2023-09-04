@@ -7,7 +7,6 @@ import {
 
 // TypeScript, please
 const isNull = (value) => value === null
-const isUndefined = (value) => value === undefined
 const isNumber = (value) => typeof value === 'number'
 const isString = (value) => typeof value === 'string'
 const isNotEmptyString = (value) => isString(value) && value.length > 0
@@ -15,6 +14,7 @@ export const isPageValid = (page) => {
   return Object.keys(NAV_ITEMS).includes(page)
 }
 
+export const isUndefined = (value) => value === undefined
 export const isTimelineItemValid = ({ hour }) => isHourValid(hour)
 
 export const isHourValid = (hour) =>

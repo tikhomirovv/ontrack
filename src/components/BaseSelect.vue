@@ -7,6 +7,7 @@ import {
   isUndefinedOrNull,
   isNumberOrNull,
 } from '../validators'
+import { BUTTON_TYPE_NEUTRAL } from '../constants'
 const props = defineProps({
   selected: Number,
   options: {
@@ -25,7 +26,7 @@ const isNotSelected = computed(() => isUndefinedOrNull(props.selected))
 </script>
 <template>
   <div class="flex gap-2">
-    <BaseButton @click="emit('select', null)">
+    <BaseButton @click="emit('select', null)" :type="BUTTON_TYPE_NEUTRAL">
       <XMarkIcon class="h-8" />
     </BaseButton>
     <select

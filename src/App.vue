@@ -14,9 +14,16 @@ import {
 
 const timelineItems = generateTimelineItems()
 const currentPage = ref(getCurrentPageHash())
-const activities = ['Coding', 'Reading', 'Trailing']
-const activitySelectOptions = generateActivitySelectOptions(activities)
+const activities = ref(['Coding', 'Reading', 'Trailing'])
+const activitySelectOptions = generateActivitySelectOptions(activities.value)
 const goTo = (page) => (currentPage.value = page)
+
+const createActivity = (activity) => {
+  activities.value.push(activity)
+}
+const deleteActivity = (activity) => {
+  activities.value.splice(activities.value.indexOf(activity), 1)
+}
 </script>
 
 <template>
@@ -30,6 +37,8 @@ const goTo = (page) => (currentPage.value = page)
     <Activities
       v-show="currentPage === PAGE_ACTIVITIES"
       :activities="activities"
+      @create-activity="createActivity"
+      @delete-activity="deleteActivity"
     />
     <Progress v-show="currentPage === PAGE_PROGRESS" />
   </main>
