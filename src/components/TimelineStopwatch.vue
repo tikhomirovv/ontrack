@@ -7,7 +7,7 @@ import {
   MILLISECONDS_IN_SECONDS,
 } from '../constants'
 import { formatSeconds } from '../functions'
-import { isNumber } from '../validators'
+import { isHourValid, isNumber } from '../validators'
 import BaseButton from './BaseButton.vue'
 import { ArrowPathIcon, PauseIcon, PlayIcon } from '@heroicons/vue/24/outline'
 
@@ -16,6 +16,11 @@ const props = defineProps({
     default: 0,
     type: Number,
     validator: isNumber,
+  },
+  hour: {
+    type: Number,
+    required: true,
+    validator: isHourValid,
   },
 })
 const seconds = ref(props.seconds)
@@ -34,10 +39,15 @@ const reset = () => {
   stop()
   seconds.value = 0
 }
+
+const isStartButtonDisabled = props.hour !== new Date().getHours()
 </script>
 <template>
   <div class="flex w-full gap-2">
-    <BaseButton :type="BUTTON_TYPE_DANGER" @click="reset"
+    <BaseButton
+      :type="BUTTON_TYPE_DANGER"
+      @click="reset"
+      :disabled="seconds === 0"
       ><ArrowPathIcon class="h-8"
     /></BaseButton>
     <div
@@ -48,7 +58,11 @@ const reset = () => {
     <BaseButton v-if="timer !== null" :type="BUTTON_TYPE_WARNING" @click="stop"
       ><PauseIcon class="h-8"
     /></BaseButton>
-    <BaseButton v-else :type="BUTTON_TYPE_SUCCESS" @click="start"
+    <BaseButton
+      v-else
+      :disabled="isStartButtonDisabled"
+      :type="BUTTON_TYPE_SUCCESS"
+      @click="start"
       ><PlayIcon class="h-8"
     /></BaseButton>
   </div>

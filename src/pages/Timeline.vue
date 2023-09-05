@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted, ref } from 'vue'
 import TimelineItem from '../components/TimelineItem.vue'
 import {
   validateActivities,
@@ -33,6 +34,14 @@ const emit = defineEmits({
     )
   },
 })
+const timelineItemRefs = ref([])
+onMounted(() => scrollToCurrentTimelineItem)
+const scrollToCurrentTimelineItem = () => {
+  const currentHour = new Date().getHours()
+  if (currentHour > 0) {
+    timelineItemRefs.value[currentHour - 1].$el.scrollIntoView()
+  }
+}
 </script>
 <template>
   <div class="mt-7">
@@ -44,6 +53,7 @@ const emit = defineEmits({
         :timeline-item="timelineItem"
         :activity-select-options="activitySelectOptions"
         @select-activity="emit('setTimelineItemActivity', timelineItem, $event)"
+        ref="timelineItemRefs"
       />
     </ul>
   </div>
