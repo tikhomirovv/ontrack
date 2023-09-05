@@ -34,13 +34,16 @@ export const isSelectValueValid = (value) =>
   isNotEmptyString(value) || isNumber(value) || isNull(value)
 export const isNumberOrNull = (value) => isNumber(value) || isNull(value)
 
-export const isActivityValid = ({ id, name, secondsToComplete }) =>
-  [
+export const isActivityValid = ({ id, name, secondsToComplete }) => {
+  if (isNull(id)) {
+    return true
+  }
+  return [
     isNotEmptyString(id),
     isNotEmptyString(name),
     isNumber(secondsToComplete),
   ].every(Boolean)
-
+}
 export const validateActivities = (activities) =>
   activities.every(isActivityValid)
 
