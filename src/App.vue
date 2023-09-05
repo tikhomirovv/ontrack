@@ -13,9 +13,9 @@ import {
   generateActivities,
 } from './functions'
 
-const timelineItems = ref(generateTimelineItems())
-const currentPage = ref(getCurrentPageHash())
 const activities = ref(generateActivities())
+const currentPage = ref(getCurrentPageHash())
+const timelineItems = ref(generateTimelineItems(activities.value))
 const activitySelectOptions = computed(() =>
   generateActivitySelectOptions(activities.value),
 )
@@ -28,6 +28,7 @@ const deleteActivity = (activity) => {
   timelineItems.value.forEach((timelineItem) => {
     if (timelineItem.activityId === activity.id) {
       timelineItem.activityId = null
+      timelineItem.activitySeconds = 0
     }
   })
   activities.value.splice(activities.value.indexOf(activity), 1)

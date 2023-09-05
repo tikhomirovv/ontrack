@@ -8,6 +8,7 @@ import {
   isActivityValid,
 } from '../validators'
 
+const a = () => {}
 defineProps({
   timelineItems: {
     type: Array,
