@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { watchPostEffect, ref, nextTick } from 'vue'
 import TimelineItem from '../components/TimelineItem.vue'
 import {
   validateActivities,
@@ -7,10 +7,11 @@ import {
   validateSelectOptions,
   isTimelineItemValid,
   isActivityValid,
+  isPageValid,
 } from '../validators'
+import { PAGE_TIMELINE } from '../constants'
 
-const a = () => {}
-defineProps({
+const props = defineProps({
   timelineItems: {
     type: Array,
     required: true,
@@ -26,6 +27,11 @@ defineProps({
     required: true,
     validator: validateSelectOptions,
   },
+  currentPage: {
+    type: String,
+    required: true,
+    validator: isPageValid,
+  },
 })
 const emit = defineEmits({
   setTimelineItemActivity(timelineItem, activity) {
@@ -35,12 +41,17 @@ const emit = defineEmits({
   },
 })
 const timelineItemRefs = ref([])
-onMounted(() => scrollToCurrentTimelineItem)
-const scrollToCurrentTimelineItem = () => {
-  const currentHour = new Date().getHours()
-  if (currentHour > 0) {
-    timelineItemRefs.value[currentHour - 1].$el.scrollIntoView()
+watchPostEffect(async () => {
+  if (props.currentPage === PAGE_TIMELINE) {
+    await nextTick()
+    scrollToHour(new Date().getHours())
   }
+})
+const scrollToHour = (hour) => {
+  timelineItemRefs.value[hour].$el.scrollIntoView({
+    block: 'center',
+    behavior: 'smooth',
+  })
 }
 </script>
 <template>
@@ -53,6 +64,7 @@ const scrollToCurrentTimelineItem = () => {
         :timeline-item="timelineItem"
         :activity-select-options="activitySelectOptions"
         @select-activity="emit('setTimelineItemActivity', timelineItem, $event)"
+        @scroll-to-hour="scrollToHour"
         ref="timelineItemRefs"
       />
     </ul>
