@@ -13,13 +13,21 @@ import {
   generateActivities,
 } from './functions'
 
+const timeline = ref()
 const activities = ref(generateActivities())
 const currentPage = ref(getCurrentPageHash())
 const timelineItems = ref(generateTimelineItems(activities.value))
 const activitySelectOptions = computed(() =>
   generateActivitySelectOptions(activities.value),
 )
-const goTo = (page) => (currentPage.value = page)
+const goTo = (page) => {
+  if (currentPage.value === PAGE_TIMELINE && page === PAGE_TIMELINE) {
+    timeline.value.scrollToHour()
+  } else if (page !== PAGE_TIMELINE) {
+    document.body.scrollIntoView()
+  }
+  currentPage.value = page
+}
 
 const createActivity = (activity) => {
   activities.value.push(activity)
@@ -45,6 +53,7 @@ const setActivitySecondsToComplete = (activity, secondsToComplete) => {
   <Header @navigate="goTo" />
   <main class="flex flex-grow flex-col">
     <Timeline
+      ref="timeline"
       v-show="currentPage === PAGE_TIMELINE"
       :current-page="currentPage"
       :activities="activities"
