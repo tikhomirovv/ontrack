@@ -44,6 +44,9 @@ const deleteActivity = (activity) => {
 const setTimelineItemActivity = (timelineItem, activity) => {
   timelineItem.activityId = activity.id
 }
+const updateTimelineItemActivitySeconds = (timelineItem, activitySeconds) => {
+  timelineItem.activitySeconds += activitySeconds
+}
 const setActivitySecondsToComplete = (activity, secondsToComplete) => {
   activity.secondsToComplete = secondsToComplete
 }
@@ -60,6 +63,7 @@ const setActivitySecondsToComplete = (activity, secondsToComplete) => {
       :timeline-items="timelineItems"
       :activity-select-options="activitySelectOptions"
       @set-timeline-item-activity="setTimelineItemActivity"
+      @update-timeline-item-activity-seconds="updateTimelineItemActivitySeconds"
     />
     <Activities
       v-show="currentPage === PAGE_ACTIVITIES"

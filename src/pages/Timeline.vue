@@ -8,6 +8,7 @@ import {
   isTimelineItemValid,
   isActivityValid,
   isPageValid,
+  isNumber,
 } from '../validators'
 import { PAGE_TIMELINE } from '../constants'
 
@@ -39,6 +40,11 @@ const emit = defineEmits({
       Boolean,
     )
   },
+  updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
+    return [isTimelineItemValid(timelineItem), isNumber(activitySeconds)].every(
+      Boolean,
+    )
+  },
 })
 const timelineItemRefs = ref([])
 watchPostEffect(async () => {
@@ -67,6 +73,9 @@ defineExpose({ scrollToHour })
         :activity-select-options="activitySelectOptions"
         @select-activity="emit('setTimelineItemActivity', timelineItem, $event)"
         @scroll-to-hour="scrollToHour"
+        @update-activity-seconds="
+          emit('updateTimelineItemActivitySeconds', timelineItem, $event)
+        "
         ref="timelineItemRefs"
       />
     </ul>

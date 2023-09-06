@@ -2,6 +2,7 @@
 import {
   isActivityValid,
   isHourValid,
+  isNumber,
   isTimelineItemValid,
   validateActivities,
 } from '../validators'
@@ -28,6 +29,7 @@ const props = defineProps({
 const emit = defineEmits({
   selectActivity: isActivityValid,
   scrollToHour: isHourValid,
+  updateActivitySeconds: isNumber,
 })
 const findActivityById = (id) =>
   props.activities.find((activity) => activity.id === id) || NULLABLE_ACTIVITY
@@ -50,6 +52,7 @@ const selectActivity = (id) => {
     <TimelineStopwatch
       :seconds="timelineItem.activitySeconds"
       :hour="timelineItem.hour"
+      @update-seconds="emit('updateActivitySeconds', $event)"
     />
   </li>
 </template>

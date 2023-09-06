@@ -23,11 +23,17 @@ const props = defineProps({
     validator: isHourValid,
   },
 })
+
+const emit = defineEmits({
+  updateSeconds: isNumber,
+})
+
 const seconds = ref(props.seconds)
 const timer = ref(null)
 
 const start = () => {
   timer.value = setInterval(() => {
+    emit('updateSeconds', 1)
     seconds.value++
   }, MILLISECONDS_IN_SECONDS)
 }
@@ -37,6 +43,7 @@ const stop = () => {
 }
 const reset = () => {
   stop()
+  emit('updateSeconds', -seconds.value)
   seconds.value = 0
 }
 
