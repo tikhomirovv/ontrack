@@ -11,6 +11,7 @@ import {
   generateTimelineItems,
   generateActivitySelectOptions,
   generateActivities,
+  generatePeriodSelectOptions,
 } from './functions'
 const timeline = ref()
 const activities = ref(generateActivities())
@@ -53,6 +54,7 @@ provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
 provide('timelineItems', timelineItems.value)
 provide('activities', activities.value)
 provide('activitySelectOptions', activitySelectOptions.value)
+provide('periodSelectOptions', generatePeriodSelectOptions())
 </script>
 
 <template>
