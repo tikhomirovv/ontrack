@@ -50,8 +50,7 @@ const selectActivity = (id) => {
       @select="selectActivity"
     />
     <TimelineStopwatch
-      :seconds="timelineItem.activitySeconds"
-      :hour="timelineItem.hour"
+      :timeline-item="timelineItem"
       @update-seconds="emit('updateActivitySeconds', $event)"
     />
   </li>
