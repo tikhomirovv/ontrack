@@ -12,8 +12,6 @@ import {
   generateActivitySelectOptions,
   generateActivities,
 } from './functions'
-provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
-
 const timeline = ref()
 const activities = ref(generateActivities())
 const currentPage = ref(getCurrentPageHash())
@@ -51,6 +49,8 @@ function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
 const setActivitySecondsToComplete = (activity, secondsToComplete) => {
   activity.secondsToComplete = secondsToComplete
 }
+provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
+provide('timelineItems', timelineItems.value)
 </script>
 
 <template>
@@ -68,7 +68,6 @@ const setActivitySecondsToComplete = (activity, secondsToComplete) => {
     <Activities
       v-show="currentPage === PAGE_ACTIVITIES"
       :activities="activities"
-      :timeline-items="timelineItems"
       @create-activity="createActivity"
       @delete-activity="deleteActivity"
       @set-activity-seconds-to-complete="setActivitySecondsToComplete"

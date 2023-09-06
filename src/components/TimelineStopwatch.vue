@@ -7,7 +7,7 @@ import {
   MILLISECONDS_IN_SECONDS,
 } from '../constants'
 import { formatSeconds } from '../functions'
-import { isTimelineItemValid, isNumber } from '../validators'
+import { isTimelineItemValid } from '../validators'
 import BaseButton from './BaseButton.vue'
 import { ArrowPathIcon, PauseIcon, PlayIcon } from '@heroicons/vue/24/outline'
 
