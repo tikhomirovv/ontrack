@@ -7,33 +7,22 @@ import Activities from './pages/Activities.vue'
 import Progress from './pages/Progress.vue'
 import { PAGE_ACTIVITIES, PAGE_PROGRESS, PAGE_TIMELINE } from './constants'
 import {
-  getCurrentPageHash,
   generateTimelineItems,
   generateActivitySelectOptions,
   generateActivities,
   generatePeriodSelectOptions,
 } from './functions'
-const timeline = ref()
+import { currentPage, timelineRef } from './router'
 const activities = ref(generateActivities())
-const currentPage = ref(getCurrentPageHash())
 const timelineItems = ref(generateTimelineItems(activities.value))
 const activitySelectOptions = computed(() =>
   generateActivitySelectOptions(activities.value),
 )
-const goTo = (page) => {
-  if (currentPage.value === PAGE_TIMELINE && page === PAGE_TIMELINE) {
-    timeline.value.scrollToHour()
-  } else if (page !== PAGE_TIMELINE) {
-    document.body.scrollIntoView()
-  }
-  currentPage.value = page
-}
 
 const createActivity = (activity) => {
   activities.value.push(activity)
 }
 const deleteActivity = (activity) => {
-  console.log('[App] Delete activity', activity)
   timelineItems.value.forEach((timelineItem) => {
     if (timelineItem.activityId === activity.id) {
       timelineItem.activityId = null
@@ -62,12 +51,11 @@ provide('periodSelectOptions', generatePeriodSelectOptions())
 </script>
 
 <template>
-  <Header @navigate="goTo" />
+  <Header />
   <main class="flex flex-grow flex-col">
     <Timeline
-      ref="timeline"
+      ref="timelineRef"
       v-show="currentPage === PAGE_TIMELINE"
-      :current-page="currentPage"
       :timeline-items="timelineItems"
     />
     <Activities
@@ -76,5 +64,5 @@ provide('periodSelectOptions', generatePeriodSelectOptions())
     />
     <Progress v-show="currentPage === PAGE_PROGRESS" />
   </main>
-  <Nav :current-page="currentPage" @navigate="goTo($event)" />
+  <Nav />
 </template>

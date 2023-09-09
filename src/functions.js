@@ -1,21 +1,11 @@
 import {
-  PAGE_TIMELINE,
-  MIDNIGHT_HOUR,
   HOURS_IN_DAY,
   SECONDS_IN_HOUR,
   SECONDS_IN_MINUTE,
   MINUTES_IN_HOUR,
   MILLISECONDS_IN_SECONDS,
 } from './constants'
-import { isPageValid, isNull } from './validators'
-export const getCurrentPageHash = () => {
-  const page = window.location.hash.slice(1)
-  if (isPageValid(page)) {
-    return page
-  }
-  window.location.hash = PAGE_TIMELINE
-  return PAGE_TIMELINE
-}
+import { isNull } from './validators'
 
 export const id = () =>
   Date.now().toString(36) + Math.random().toString(36).substring(2)
