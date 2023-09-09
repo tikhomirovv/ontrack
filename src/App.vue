@@ -33,6 +33,7 @@ const createActivity = (activity) => {
   activities.value.push(activity)
 }
 const deleteActivity = (activity) => {
+  console.log('[App] Delete activity', activity)
   timelineItems.value.forEach((timelineItem) => {
     if (timelineItem.activityId === activity.id) {
       timelineItem.activityId = null
@@ -51,7 +52,10 @@ const setActivitySecondsToComplete = (activity, secondsToComplete) => {
   activity.secondsToComplete = secondsToComplete
 }
 provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
+provide('setActivitySecondsToComplete', setActivitySecondsToComplete)
 provide('setTimelineItemActivity', setTimelineItemActivity)
+provide('createActivity', createActivity)
+provide('deleteActivity', deleteActivity)
 provide('timelineItems', timelineItems.value)
 provide('activitySelectOptions', activitySelectOptions.value)
 provide('periodSelectOptions', generatePeriodSelectOptions())
@@ -69,9 +73,6 @@ provide('periodSelectOptions', generatePeriodSelectOptions())
     <Activities
       v-show="currentPage === PAGE_ACTIVITIES"
       :activities="activities"
-      @create-activity="createActivity"
-      @delete-activity="deleteActivity"
-      @set-activity-seconds-to-complete="setActivitySecondsToComplete"
     />
     <Progress v-show="currentPage === PAGE_PROGRESS" />
   </main>
