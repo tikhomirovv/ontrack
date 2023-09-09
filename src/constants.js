@@ -4,7 +4,6 @@ import {
   ChartBarIcon,
 } from '@heroicons/vue/24/outline'
 
-import { generatePeriodSelectOptions } from './functions'
 export const BUTTON_TYPE_DANGER = 'danger'
 export const BUTTON_TYPE_NEUTRAL = 'neutral'
 export const BUTTON_TYPE_PRIMARY = 'primary'
@@ -26,7 +25,6 @@ export const NAV_ITEMS = {
   [PAGE_ACTIVITIES]: ListBulletIcon,
   [PAGE_PROGRESS]: ChartBarIcon,
 }
-export const NULLABLE_ACTIVITY = { id: null }
 
 export const MIDNIGHT_HOUR = 0
 export const HOURS_IN_DAY = 24
