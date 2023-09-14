@@ -10,11 +10,11 @@ import { formatSeconds } from '../functions'
 import { isTimelineItemValid } from '../validators'
 import BaseButton from './BaseButton.vue'
 import { ArrowPathIcon, PauseIcon, PlayIcon } from '@heroicons/vue/24/outline'
+import { updateTimelineItemActivitySecondsKey } from '../keys'
 
 const updateTimelineItemActivitySeconds = inject(
-  'updateTimelineItemActivitySeconds',
+  updateTimelineItemActivitySecondsKey,
 )
-
 const props = defineProps({
   timelineItem: {
     type: Object,
@@ -50,22 +50,24 @@ const isStartButtonDisabled = props.timelineItem.hour !== new Date().getHours()
       :type="BUTTON_TYPE_DANGER"
       @click="reset"
       :disabled="seconds === 0"
-      ><ArrowPathIcon class="h-8"
-    /></BaseButton>
+    >
+      <ArrowPathIcon class="h-8" />
+    </BaseButton>
     <div
       class="flex flex-grow items-center rounded bg-gray-100 px-2 font-mono text-3xl"
     >
       {{ formatSeconds(seconds) }}
     </div>
-    <BaseButton v-if="timer !== null" :type="BUTTON_TYPE_WARNING" @click="stop"
-      ><PauseIcon class="h-8"
-    /></BaseButton>
+    <BaseButton v-if="timer !== null" :type="BUTTON_TYPE_WARNING" @click="stop">
+      <PauseIcon class="h-8" />
+    </BaseButton>
     <BaseButton
       v-else
       :disabled="isStartButtonDisabled"
       :type="BUTTON_TYPE_SUCCESS"
       @click="start"
-      ><PlayIcon class="h-8"
-    /></BaseButton>
+    >
+      <PlayIcon class="h-8" />
+    </BaseButton>
   </div>
 </template>

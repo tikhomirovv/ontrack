@@ -3,8 +3,8 @@ import { nextTick, ref, inject } from 'vue'
 import BaseButton from './BaseButton.vue'
 import { PlusIcon } from '@heroicons/vue/24/outline'
 import { id } from './../functions'
-
-const createActivity = inject('createActivity')
+import { createActivityKey } from '../keys'
+const createActivity = inject(createActivityKey)
 
 let name = ref('')
 const submit = async () => {

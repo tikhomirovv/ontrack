@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, provide } from 'vue'
+import { ref, computed, provide, readonly } from 'vue'
 import Header from './components/Header.vue'
 import Nav from './components/Nav.vue'
 import Timeline from './pages/Timeline.vue'
@@ -12,6 +12,7 @@ import {
   generateActivities,
   generatePeriodSelectOptions,
 } from './functions'
+import * as keys from './keys'
 import { currentPage, timelineRef } from './router'
 const activities = ref(generateActivities())
 const timelineItems = ref(generateTimelineItems(activities.value))
@@ -40,14 +41,17 @@ function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
 const setActivitySecondsToComplete = (activity, secondsToComplete) => {
   activity.secondsToComplete = secondsToComplete
 }
-provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
-provide('setActivitySecondsToComplete', setActivitySecondsToComplete)
-provide('setTimelineItemActivity', setTimelineItemActivity)
-provide('createActivity', createActivity)
-provide('deleteActivity', deleteActivity)
-provide('timelineItems', timelineItems.value)
-provide('activitySelectOptions', activitySelectOptions.value)
-provide('periodSelectOptions', generatePeriodSelectOptions())
+provide(
+  keys.updateTimelineItemActivitySecondsKey,
+  updateTimelineItemActivitySeconds,
+)
+provide(keys.setActivitySecondsToCompleteKey, setActivitySecondsToComplete)
+provide(keys.setTimelineItemActivityKey, setTimelineItemActivity)
+provide(keys.createActivityKey, createActivity)
+provide(keys.deleteActivityKey, deleteActivity)
+provide(keys.activitySelectOptionsKey, readonly(activitySelectOptions.value))
+provide(keys.periodSelectOptionsKey, readonly(generatePeriodSelectOptions()))
+provide(keys.timelineItemsKey, readonly(timelineItems.value))
 </script>
 
 <template>
@@ -62,7 +66,7 @@ provide('periodSelectOptions', generatePeriodSelectOptions())
       v-show="currentPage === PAGE_ACTIVITIES"
       :activities="activities"
     />
-    <Progress v-show="currentPage === PAGE_PROGRESS" />
+      <Progress v-show="currentPage === PAGE_PROGRESS" />
   </main>
   <Nav />
 </template>
