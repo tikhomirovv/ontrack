@@ -26,7 +26,8 @@ defineProps({
 </script>
 <template>
   <button
-    :class="`${typeClasses[type]} rounded p-3 disabled:cursor-not-allowed disabled:opacity-50`"
+    class="rounded p-3 disabled:cursor-not-allowed disabled:opacity-50"
+    :class="typeClasses[type]"
   >
     <slot></slot>
   </button>

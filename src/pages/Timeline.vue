@@ -4,6 +4,7 @@ import TimelineItem from '../components/TimelineItem.vue'
 import { validateTimelineItems } from '../validators'
 import { PAGE_TIMELINE } from '../constants'
 import { currentPage } from '../router'
+import { currentHour } from '../functions'
 defineProps({
   timelineItems: {
     type: Array,
@@ -19,7 +20,7 @@ watchPostEffect(async () => {
   }
 })
 const scrollToHour = (hour = null, isSmooth = true) => {
-  hour ??= new Date().getHours()
+  hour ??= currentHour()
   timelineItemRefs.value[hour].$el.scrollIntoView({
     block: 'center',
     behavior: isSmooth ? 'smooth' : 'instant',
@@ -34,7 +35,7 @@ defineExpose({ scrollToHour })
         v-for="timelineItem in timelineItems"
         :key="timelineItem.hour"
         :timeline-item="timelineItem"
-        @scroll-to-hour="scrollToHour"
+        @scroll-to-hour="scrollToHour(timelineItem.hour)"
         ref="timelineItemRefs"
       />
     </ul>

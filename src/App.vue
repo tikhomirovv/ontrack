@@ -39,7 +39,7 @@ function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
   timelineItem.activitySeconds += activitySeconds
 }
 const setActivitySecondsToComplete = (activity, secondsToComplete) => {
-  activity.secondsToComplete = secondsToComplete
+  activity.secondsToComplete = secondsToComplete || 0
 }
 provide(
   keys.updateTimelineItemActivitySecondsKey,
@@ -66,7 +66,7 @@ provide(keys.timelineItemsKey, readonly(timelineItems.value))
       v-show="currentPage === PAGE_ACTIVITIES"
       :activities="activities"
     />
-      <Progress v-show="currentPage === PAGE_PROGRESS" />
+    <Progress v-show="currentPage === PAGE_PROGRESS" />
   </main>
   <Nav />
 </template>

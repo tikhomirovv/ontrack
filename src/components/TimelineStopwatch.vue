@@ -6,7 +6,7 @@ import {
   BUTTON_TYPE_WARNING,
   MILLISECONDS_IN_SECONDS,
 } from '../constants'
-import { formatSeconds } from '../functions'
+import { currentHour, formatSeconds } from '../functions'
 import { isTimelineItemValid } from '../validators'
 import BaseButton from './BaseButton.vue'
 import { ArrowPathIcon, PauseIcon, PlayIcon } from '@heroicons/vue/24/outline'
@@ -42,7 +42,7 @@ const reset = () => {
   seconds.value = 0
 }
 
-const isStartButtonDisabled = props.timelineItem.hour !== new Date().getHours()
+const isStartButtonDisabled = props.timelineItem.hour !== currentHour()
 </script>
 <template>
   <div class="flex w-full gap-2">

@@ -36,7 +36,7 @@ const props = defineProps({
         :selected="activity.secondsToComplete || null"
         :placeholder="'hh:mm'"
         :options="periodSelectOptions"
-        @select="setActivitySecondsToComplete(activity, $event || 0)"
+        @select="setActivitySecondsToComplete(activity, $event)"
       />
       <ActivitySecondsToComplete :activity="activity" />
     </div>
