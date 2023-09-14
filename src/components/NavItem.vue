@@ -1,15 +1,25 @@
 <script setup>
-defineOptions({
-  inheritAttrs: false,
+import { navigate, currentPage } from '../router'
+import { isNavItemValid } from '../validators'
+defineProps({
+  navItem: {
+    type: Object,
+    required: true,
+    validator: isNavItemValid,
+  },
 })
 </script>
 <template>
-  <li class="flex-1">
+  <li
+    class="flex-1"
+    :class="{ 'pointer-events-none bg-gray-200': currentPage === navItem.page }"
+  >
     <a
-      v-bind="$attrs"
+      :href="`#${navItem.page}`"
+      @click="navigate(navItem.page)"
       class="flex flex-col items-center p-2 text-xs capitalize"
     >
-      <slot></slot>
+      <component :is="navItem.icon" class="h-6 w-6" /> {{ navItem.page }}
     </a>
   </li>
 </template>

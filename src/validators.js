@@ -9,7 +9,11 @@ import {
 const isString = (value) => typeof value === 'string'
 const isNotEmptyString = (value) => isString(value) && value.length > 0
 export const isPageValid = (page) => {
-  return Object.keys(NAV_ITEMS).includes(page)
+  // return Object.keys(NAV_ITEMS).includes(page)
+  return NAV_ITEMS.some((navItem) => navItem.page === page)
+}
+export const isNavItemValid = (navItem) => {
+  return NAV_ITEMS.includes(navItem)
 }
 
 export const isNull = (value) => value === null
