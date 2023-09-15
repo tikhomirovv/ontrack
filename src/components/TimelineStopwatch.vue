@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import {
   BUTTON_TYPE_DANGER,
   BUTTON_TYPE_SUCCESS,
@@ -23,9 +23,19 @@ const props = defineProps({
 const seconds = ref(props.timelineItem.activitySeconds)
 const timer = ref(null)
 
+watch(
+  () => props.timelineItem.activityId,
+  () => {
+    updateTimelineItemActivitySeconds(props.timelineItem, seconds)
+  },
+)
+
 const start = () => {
   timer.value = setInterval(() => {
-    updateTimelineItemActivitySeconds(props.timelineItem, 1)
+    updateTimelineItemActivitySeconds(
+      props.timelineItem,
+      props.timelineItem.activitySeconds + 1,
+    )
     seconds.value++
   }, MILLISECONDS_IN_SECONDS)
 }
@@ -35,7 +45,10 @@ const stop = () => {
 }
 const reset = () => {
   stop()
-  updateTimelineItemActivitySeconds(props.timelineItem, -seconds.value)
+  updateTimelineItemActivitySeconds(
+    props.timelineItem,
+    props.timelineItem.activitySeconds - seconds.value,
+  )
   seconds.value = 0
 }
 
