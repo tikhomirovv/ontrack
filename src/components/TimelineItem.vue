@@ -1,12 +1,12 @@
 <script setup>
 import { inject } from 'vue'
 import { isNumber, isTimelineItemValid, isUndefined } from '../validators'
+import { setTimelineItemActivity } from '../timeline-item'
+import { activitySelectOptions } from '../activities'
 import BaseSelect from './BaseSelect.vue'
 import TimelineHour from './TimelineHour.vue'
 import TimelineStopwatch from './TimelineStopwatch.vue'
-import { setTimelineItemActivityKey, activitySelectOptionsKey } from '../keys'
-const setTimelineItemActivity = inject(setTimelineItemActivityKey)
-const activitySelectOptions = inject(activitySelectOptionsKey)
+
 const props = defineProps({
   timelineItem: {
     type: Object,

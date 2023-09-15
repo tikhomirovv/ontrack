@@ -1,17 +1,11 @@
 <script setup>
 import { watchPostEffect, ref, nextTick } from 'vue'
 import TimelineItem from '../components/TimelineItem.vue'
-import { validateTimelineItems } from '../validators'
 import { PAGE_TIMELINE } from '../constants'
 import { currentPage } from '../router'
 import { currentHour } from '../functions'
-defineProps({
-  timelineItems: {
-    type: Array,
-    required: true,
-    validator: validateTimelineItems,
-  },
-})
+import { timelineItems } from '../timeline-item'
+
 const timelineItemRefs = ref([])
 watchPostEffect(async () => {
   if (currentPage.value === PAGE_TIMELINE) {

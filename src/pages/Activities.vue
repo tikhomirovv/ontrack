@@ -1,15 +1,8 @@
 <script setup>
-import { validateActivities } from '../validators'
 import ActivityItem from '../components/ActivityItem.vue'
 import ActivityForm from '../components/ActivityForm.vue'
 import ActivitiesEmptyState from '../components/ActivitiesEmptyState.vue'
-const props = defineProps({
-  activities: {
-    type: Array,
-    required: true,
-    validator: validateActivities,
-  },
-})
+import { activities } from '../activities'
 </script>
 <template>
   <div class="flex flex-grow flex-col">
