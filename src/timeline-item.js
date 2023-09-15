@@ -1,29 +1,27 @@
 import { ref } from 'vue'
 import { activities } from './activities'
 import { HOURS_IN_DAY } from './constants'
+
 export const timelineItems = ref(generateTimelineItems(activities.value))
-export const setTimelineItemActivity = (timelineItem, activityId) => {
-  timelineItem.activityId = activityId
-}
-export function updateTimelineItemActivitySeconds(
-  timelineItem,
-  activitySeconds,
-) {
-  timelineItem.activitySeconds = activitySeconds
+
+export function updateTimelineItem(timelineItem, fields) {
+  return Object.assign(timelineItem, fields)
 }
 
 export function resetTimelineActivities(activity) {
-  timelineItems.value.forEach((timelineItem) => {
-    if (timelineItem.activityId === activity.id) {
-      timelineItem.activityId = null
-      timelineItem.activitySeconds = 0
-    }
-  })
+  timelineItems.value
+    .filter((timelineItem) => hasActivity(timelineItem, activity))
+    .forEach((timelineItem) =>
+      updateTimelineItem(timelineItem, {
+        activityId: null,
+        activitySeconds: 0,
+      }),
+    )
 }
 
 export function getTotalActivitySeconds(activity) {
   return timelineItems.value
-    .filter((timelineItem) => timelineItem.activityId === activity.id)
+    .filter((timelineItem) => hasActivity(timelineItem, activity))
     .reduce(
       (totalSeconds, timelineItem) =>
         Math.round(timelineItem.activitySeconds + totalSeconds),
@@ -31,6 +29,9 @@ export function getTotalActivitySeconds(activity) {
     )
 }
 
+function hasActivity(timelineItem, activity) {
+  return timelineItem.activityId === activity.id
+}
 function generateTimelineItems() {
   return [...Array(HOURS_IN_DAY).keys()].map((hour) => ({
     hour,

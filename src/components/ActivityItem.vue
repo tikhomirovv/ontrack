@@ -1,7 +1,7 @@
 <script setup>
 import { TrashIcon } from '@heroicons/vue/24/outline'
 import { BUTTON_TYPE_DANGER, PERIOD_SELECT_OPTIONS } from '../constants'
-import { setActivitySecondsToComplete, deleteActivity } from '../activities'
+import { updateActivity, deleteActivity } from '../activities'
 import { isActivityValid } from '../validators'
 import { resetTimelineActivities } from '../timeline-item'
 import BaseSelect from '../components/BaseSelect.vue'
@@ -38,7 +38,7 @@ function deleteAndResetActivity(activity) {
         :selected="activity.secondsToComplete || null"
         :placeholder="'hh:mm'"
         :options="PERIOD_SELECT_OPTIONS"
-        @select="setActivitySecondsToComplete(activity, $event)"
+        @select="updateActivity(activity, { secondsToComplete: $event || 0 })"
       />
       <ActivitySecondsToComplete :activity="activity" />
     </div>
