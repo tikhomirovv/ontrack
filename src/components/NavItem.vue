@@ -1,6 +1,7 @@
 <script setup>
 import { navigate, currentPage } from '../router'
 import { isNavItemValid } from '../validators'
+import BaseIcon from './BaseIcon.vue'
 defineProps({
   navItem: {
     type: Object,
@@ -19,7 +20,7 @@ defineProps({
       @click="navigate(navItem.page)"
       class="flex flex-col items-center p-2 text-xs capitalize"
     >
-      <component :is="navItem.icon" class="h-6 w-6" /> {{ navItem.page }}
+      <BaseIcon :name="navItem.icon" class="h-6 w-6" /> {{ navItem.page }}
     </a>
   </li>
 </template>

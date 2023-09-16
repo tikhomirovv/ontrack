@@ -4,12 +4,14 @@ import {
   MIDNIGHT_HOUR,
   BUTTON_TYPES,
 } from './constants.js'
-
+import { ICONS } from './icons.js'
 // TypeScript, please
 const isString = (value) => typeof value === 'string'
 const isNotEmptyString = (value) => isString(value) && value.length > 0
+export function isIconValid(icon) {
+  return Object.keys(ICONS).includes(icon)
+}
 export const isPageValid = (page) => {
-  // return Object.keys(NAV_ITEMS).includes(page)
   return NAV_ITEMS.some((navItem) => navItem.page === page)
 }
 export const isNavItemValid = (navItem) => {
