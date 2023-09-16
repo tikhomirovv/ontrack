@@ -22,7 +22,7 @@ const secondsDiff = computed(
 <template>
   <div
     v-if="activity.secondsToComplete > 0"
-    class="flex items-center rounded bg-purple-100 px-2 font-mono text-xl text-purple-600"
+    class="flex items-center rounded px-2 font-mono text-xl"
     :class="{
       'bg-green-100 text-green-600': secondsDiff > 0,
       'bg-red-100 text-red-600': secondsDiff < 0,
