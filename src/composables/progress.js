@@ -8,15 +8,15 @@ import {
 export function useProgress(activity) {
   const colorClass = computed(() => getProgressColorClass(percentage.value))
   const percentage = computed(() =>
-    calaculateActivityCompletionPercentage(activity, trackedSeconds.value),
+    calaculateActivityCompletionPercentage(activity, trackedActivitySeconds.value),
   )
-  const trackedSeconds = computed(() =>
+  const trackedActivitySeconds = computed(() =>
     calculateTrackedActivitySeconds(timelineItems.value, activity),
   )
 
   return {
     colorClass,
     percentage,
-    trackedSeconds,
+    trackedActivitySeconds,
   }
 }
