@@ -1,5 +1,4 @@
 import { ref, computed } from 'vue'
-import { getTotalActivitySeconds } from './timeline-item'
 import { id } from './functions'
 import { HUNDRED_PERCENT } from './constants'
 export const activities = ref(generateActivities())
@@ -18,11 +17,11 @@ export const deleteActivity = (activity) => {
   activities.value.splice(activities.value.indexOf(activity), 1)
 }
 
-export function getActivityProgress(activity) {
-  return Math.floor(
-    (getTotalActivitySeconds(activity) * HUNDRED_PERCENT) /
-      activity.secondsToComplete,
-  )
+export function calaculateActivityCompletionPercentage(
+  { secondsToComplete },
+  trackedSeconds,
+) {
+  return Math.floor((trackedSeconds * HUNDRED_PERCENT) / secondsToComplete)
 }
 
 export const updateActivity = (activity, fields) => {

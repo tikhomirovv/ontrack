@@ -5,9 +5,8 @@ import ProgressItem from '../components/ProgressItem.vue'
 <template>
   <ul class="divide-y">
     <ProgressItem
-      v-for="(activity, index) in trackedActivities"
+      v-for="activity in trackedActivities"
       :key="activity.id"
-      :index="index"
       :activity="activity"
     />
   </ul>

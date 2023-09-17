@@ -28,7 +28,7 @@ watch(
   () => props.timelineItem.activityId,
   () => {
     updateTimelineItem(props.timelineItem, {
-      activitySeconds: seconds.value * temp,
+      activitySeconds: seconds.value,
     })
   },
 )
@@ -38,7 +38,7 @@ const start = () => {
     updateTimelineItem(props.timelineItem, {
       activitySeconds: props.timelineItem.activitySeconds + temp,
     })
-    seconds.value++
+    seconds.value += temp
   }, MILLISECONDS_IN_SECONDS)
 }
 const stop = () => {
@@ -48,7 +48,7 @@ const stop = () => {
 const reset = () => {
   stop()
   updateTimelineItem(props.timelineItem, {
-    activitySeconds: props.timelineItem.activitySeconds - seconds.value * temp,
+    activitySeconds: props.timelineItem.activitySeconds - seconds.value,
   })
   seconds.value = 0
 }
