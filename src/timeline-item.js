@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { HOURS_IN_DAY } from './constants'
 import { currentHour } from './functions'
-
+import { activities } from './activities'
 export const timelineItems = ref(generateTimelineItems())
 
 export function updateTimelineItem(timelineItem, fields) {
@@ -13,7 +13,10 @@ export function resetTimelineActivities(timelineItems, activity) {
     (timelineItem) =>
       updateTimelineItem(timelineItem, {
         activityId: null,
-        activitySeconds: 0,
+        activitySeconds:
+          timelineItem.hour === currentHour()
+            ? timelineItem.activitySeconds
+            : 0,
       }),
   )
 }
