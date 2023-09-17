@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { formatSeconds } from '../functions'
+import { formatSecondsWithSign } from '../functions'
 import { isActivityValid } from '../validators'
 import {
   timelineItems,
@@ -13,11 +13,7 @@ const props = defineProps({
     validator: isActivityValid,
   },
 })
-const seconds = computed(
-  () => `${sign.value}${formatSeconds(secondsDiff.value)}`,
-)
-const sign = computed(() => (secondsDiff.value >= 0 ? '' : '-'))
-const secondsDiff = computed(
+const remainingSeconds = computed(
   () =>
     calculateTrackedActivitySeconds(timelineItems.value, props.activity) -
     props.activity.secondsToComplete,
@@ -26,12 +22,13 @@ const secondsDiff = computed(
 <template>
   <div
     v-if="activity.secondsToComplete > 0"
-    class="flex items-center rounded px-2 font-mono text-xl"
-    :class="{
-      'bg-green-100 text-green-600': secondsDiff > 0,
-      'bg-red-100 text-red-600': secondsDiff < 0,
-    }"
+    :class="[
+      'flex items-center rounded px-2 font-mono text-xl',
+      remainingSeconds < 0
+        ? 'bg-red-100 text-red-600'
+        : 'bg-green-100 text-green-600',
+    ]"
   >
-    {{ seconds }}
+    {{ formatSecondsWithSign(remainingSeconds) }}
   </div>
 </template>

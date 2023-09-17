@@ -4,7 +4,7 @@ import { ICON_TRASH } from '../icons'
 import { updateActivity, deleteActivity } from '../activities'
 import { isActivityValid } from '../validators'
 import { timelineItems, resetTimelineActivities } from '../timeline-item'
-import ActivitySecondsToComplete from './ActivitySecondsToComplete.vue'
+import RemainingActivitySeconds from './RemainingActivitySeconds.vue'
 import BaseSelect from './BaseSelect.vue'
 import BaseButton from './BaseButton.vue'
 import BaseIcon from './BaseIcon.vue'
@@ -41,7 +41,7 @@ function deleteAndResetActivity(activity) {
         :options="PERIOD_SELECT_OPTIONS"
         @select="updateActivity(activity, { secondsToComplete: $event || 0 })"
       />
-      <ActivitySecondsToComplete :activity="activity" />
+      <RemainingActivitySeconds :activity="activity" />
     </div>
   </li>
 </template>

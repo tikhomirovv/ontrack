@@ -1,18 +1,15 @@
 <script setup>
-import { ref, watch } from 'vue'
 import {
   BUTTON_TYPE_DANGER,
   BUTTON_TYPE_SUCCESS,
   BUTTON_TYPE_WARNING,
-  MILLISECONDS_IN_SECONDS,
 } from '../constants'
 import { currentHour, formatSeconds } from '../functions'
 import { isTimelineItemValid } from '../validators'
-import { updateTimelineItem } from '../timeline-item'
+import { useStopwatch } from '../composables/stopwatch'
+import { ICON_ARROW_PATH, ICON_PAUSE, ICON_PLAY } from '../icons'
 import BaseButton from './BaseButton.vue'
 import BaseIcon from './BaseIcon.vue'
-import { ICON_ARROW_PATH, ICON_PAUSE, ICON_PLAY } from '../icons'
-
 const props = defineProps({
   timelineItem: {
     type: Object,
@@ -20,40 +17,7 @@ const props = defineProps({
     validator: isTimelineItemValid,
   },
 })
-
-const seconds = ref(props.timelineItem.activitySeconds)
-const timer = ref(null)
-const temp = 120
-watch(
-  () => props.timelineItem.activityId,
-  () => {
-    updateTimelineItem(props.timelineItem, {
-      activitySeconds: seconds.value,
-    })
-  },
-)
-
-const start = () => {
-  timer.value = setInterval(() => {
-    updateTimelineItem(props.timelineItem, {
-      activitySeconds: props.timelineItem.activitySeconds + temp,
-    })
-    seconds.value += temp
-  }, MILLISECONDS_IN_SECONDS)
-}
-const stop = () => {
-  clearInterval(timer.value)
-  timer.value = null
-}
-const reset = () => {
-  stop()
-  updateTimelineItem(props.timelineItem, {
-    activitySeconds: props.timelineItem.activitySeconds - seconds.value,
-  })
-  seconds.value = 0
-}
-
-const isStartButtonDisabled = props.timelineItem.hour !== currentHour()
+const { seconds, timer, start, stop, reset } = useStopwatch(props.timelineItem)
 </script>
 <template>
   <div class="flex w-full gap-2">
@@ -74,7 +38,7 @@ const isStartButtonDisabled = props.timelineItem.hour !== currentHour()
     </BaseButton>
     <BaseButton
       v-else
-      :disabled="isStartButtonDisabled"
+      :disabled="timelineItem.hour !== currentHour()"
       :type="BUTTON_TYPE_SUCCESS"
       @click="start"
     >
